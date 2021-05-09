@@ -17,7 +17,7 @@ namespace ConsoleApp2
         }
     }
 
-    public class p : KcpPlayer
+    public class p : DNPlayer
     {
         public override void OnUpdate()
         {
@@ -31,7 +31,7 @@ namespace ConsoleApp2
     {
     }
 
-    public class Server : UdpServer<p, s>//dotnetty服务器
+    public class Server : UdpServerIOCP<p, s>//dotnetty服务器
     {
         public int num;
         public int sceneID = 10000;
@@ -76,9 +76,9 @@ namespace ConsoleApp2
         {
             return NetConvertBinary.Deserialize(buffer, index, count);
         }
-        protected override Segment OnSerializeOpt(OperationList list)
+        protected override byte[] OnSerializeOpt(OperationList list)
         {
-            return NetConvertBinary.SerializeObject(list);
+            return NetConvertBinary.SerializeObject(list).ToArray(true);
         }
         protected override OperationList OnDeserializeOpt(byte[] buffer, int index, int count)
         {

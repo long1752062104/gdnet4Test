@@ -40,10 +40,6 @@
     <Reference Include="Fleck">
       <HintPath>D:\GDNetGit\GameDesigner\bin\Debug\Fleck.dll</HintPath>
     </Reference>
-    <Reference Include="GameDesigner, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>H:\GameDesigner\bin\Debug\GameDesigner.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -77,6 +73,12 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GameDesigner\GameDesigner.csproj">
+      <Project>{fe219639-b77f-4ca7-9848-e8234936048b}</Project>
+      <Name>GameDesigner</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

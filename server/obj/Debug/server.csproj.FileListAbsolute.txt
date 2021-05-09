@@ -32,3 +32,37 @@ C:\Users\Administrator\Documents\Tencent Files\1752062104\FileRecv\gdnet3压测\
 C:\Users\Administrator\Documents\Tencent Files\1752062104\FileRecv\gdnet3压测\server\obj\Debug\serverTest.exe.config
 C:\Users\Administrator\Documents\Tencent Files\1752062104\FileRecv\gdnet3压测\server\bin\Debug\serverTest.exe.config
 C:\Users\Administrator\Documents\Tencent Files\1752062104\FileRecv\gdnet3压测\server\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\gdnet4Test\server\obj\Debug\server.csprojAssemblyReference.cache
+D:\gdnet4Test\server\obj\Debug\serverTest.exe.config
+D:\gdnet4Test\server\obj\Debug\ConsoleApp2.Form1.resources
+D:\gdnet4Test\server\obj\Debug\server.csproj.GenerateResource.cache
+D:\gdnet4Test\server\obj\Debug\server.csproj.CoreCompileInputs.cache
+D:\gdnet4Test\server\bin\Debug\serverTest.exe.config
+D:\gdnet4Test\server\bin\Debug\serverTest.exe
+D:\gdnet4Test\server\bin\Debug\serverTest.pdb
+D:\gdnet4Test\server\bin\Debug\GameDesigner.dll
+D:\gdnet4Test\server\bin\Debug\DotNetty.Transport.dll
+D:\gdnet4Test\server\bin\Debug\DotNetty.Transport.Libuv.dll
+D:\gdnet4Test\server\bin\Debug\DotNetty.Buffers.dll
+D:\gdnet4Test\server\bin\Debug\WebSocket4Net.dll
+D:\gdnet4Test\server\bin\Debug\SuperSocket.ClientEngine.dll
+D:\gdnet4Test\server\bin\Debug\DotNetty.Common.dll
+D:\gdnet4Test\server\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\gdnet4Test\server\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\gdnet4Test\server\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+D:\gdnet4Test\server\bin\Debug\Microsoft.Extensions.Logging.dll
+D:\gdnet4Test\server\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\gdnet4Test\server\bin\Debug\GameDesigner.pdb
+D:\gdnet4Test\server\bin\Debug\GameDesigner.xml
+D:\gdnet4Test\server\bin\Debug\GameDesigner.dll.config
+D:\gdnet4Test\server\bin\Debug\DotNetty.Transport.xml
+D:\gdnet4Test\server\bin\Debug\DotNetty.Transport.Libuv.xml
+D:\gdnet4Test\server\bin\Debug\DotNetty.Buffers.xml
+D:\gdnet4Test\server\bin\Debug\DotNetty.Common.xml
+D:\gdnet4Test\server\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\gdnet4Test\server\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+D:\gdnet4Test\server\bin\Debug\Microsoft.Extensions.Logging.xml
+D:\gdnet4Test\server\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+D:\gdnet4Test\server\obj\Debug\server.csproj.CopyComplete
+D:\gdnet4Test\server\obj\Debug\serverTest.exe
+D:\gdnet4Test\server\obj\Debug\serverTest.pdb

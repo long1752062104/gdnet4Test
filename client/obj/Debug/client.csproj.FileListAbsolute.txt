@@ -28,3 +28,32 @@ C:\Users\Administrator\Documents\Tencent Files\1752062104\FileRecv\gdnet3压测\
 C:\Users\Administrator\Documents\Tencent Files\1752062104\FileRecv\gdnet3压测\client\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
 C:\Users\Administrator\Documents\Tencent Files\1752062104\FileRecv\gdnet3压测\client\bin\Debug\GameDesigner.dll.config
 C:\Users\Administrator\Documents\Tencent Files\1752062104\FileRecv\gdnet3压测\client\bin\Debug\Fleck.dll
+D:\gdnet4Test\client\bin\Debug\ConsoleApp1.exe
+D:\gdnet4Test\client\bin\Debug\ConsoleApp1.pdb
+D:\gdnet4Test\client\bin\Debug\DotNetty.Transport.dll
+D:\gdnet4Test\client\bin\Debug\DotNetty.Transport.Libuv.dll
+D:\gdnet4Test\client\bin\Debug\DotNetty.Buffers.dll
+D:\gdnet4Test\client\bin\Debug\Fleck.dll
+D:\gdnet4Test\client\bin\Debug\WebSocket4Net.dll
+D:\gdnet4Test\client\bin\Debug\SuperSocket.ClientEngine.dll
+D:\gdnet4Test\client\bin\Debug\DotNetty.Common.dll
+D:\gdnet4Test\client\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\gdnet4Test\client\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\gdnet4Test\client\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+D:\gdnet4Test\client\bin\Debug\Microsoft.Extensions.Logging.dll
+D:\gdnet4Test\client\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\gdnet4Test\client\bin\Debug\GameDesigner.pdb
+D:\gdnet4Test\client\bin\Debug\GameDesigner.xml
+D:\gdnet4Test\client\bin\Debug\GameDesigner.dll.config
+D:\gdnet4Test\client\bin\Debug\DotNetty.Transport.xml
+D:\gdnet4Test\client\bin\Debug\DotNetty.Transport.Libuv.xml
+D:\gdnet4Test\client\bin\Debug\DotNetty.Buffers.xml
+D:\gdnet4Test\client\bin\Debug\DotNetty.Common.xml
+D:\gdnet4Test\client\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+D:\gdnet4Test\client\bin\Debug\Microsoft.Extensions.Logging.xml
+D:\gdnet4Test\client\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+D:\gdnet4Test\client\obj\Debug\client.csprojAssemblyReference.cache
+D:\gdnet4Test\client\obj\Debug\client.csproj.CoreCompileInputs.cache
+D:\gdnet4Test\client\obj\Debug\client.csproj.CopyComplete
+D:\gdnet4Test\client\obj\Debug\ConsoleApp1.exe
+D:\gdnet4Test\client\obj\Debug\ConsoleApp1.pdb

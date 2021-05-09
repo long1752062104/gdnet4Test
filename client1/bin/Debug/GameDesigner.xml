@@ -2706,12 +2706,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="F:Net.Client.ClientBase.TRpcs">
-            <summary>
-            多线程网络委托函数
-            </summary>
-            <returns></returns>
-        </member>
         <member name="F:Net.Client.ClientBase.RpcsDic">
             <summary>
             远程方法优化字典
@@ -2720,11 +2714,6 @@
         <member name="F:Net.Client.ClientBase.RpcMaskDic">
             <summary>
             远程方法遮罩
-            </summary>
-        </member>
-        <member name="F:Net.Client.ClientBase.TRpcsDic">
-            <summary>
-            多线程远程方法优化字典
             </summary>
         </member>
         <member name="F:Net.Client.ClientBase.threadDic">
@@ -2894,22 +2883,42 @@
             当客户端发送可靠数据时, 可监听此事件显示进度值 (NetworkClient,TcpClient类无效)
             </summary>
         </member>
-        <member name="F:Net.Client.ClientBase.OnSerializeRpcHandle">
+        <member name="P:Net.Client.ClientBase.OnAddRpcHandle">
+            <summary>
+            当添加远程过程调用方法时调用， 参数1：要收集rpc特性的对象， 参数2：如果服务器的rpc中已经有了这个对象，还可以添加进去？
+            </summary>
+        </member>
+        <member name="P:Net.Client.ClientBase.OnRemoveRpc">
+            <summary>
+            当移除远程过程调用对象， 参数1：移除此对象的所有rpc方法
+            </summary>
+        </member>
+        <member name="P:Net.Client.ClientBase.OnRPCExecute">
+            <summary>
+            当执行调用远程过程方法时触发
+            </summary>
+        </member>
+        <member name="F:Net.Client.ClientBase.OnCheckRpcUpdate">
+            <summary>
+            检查rpc对象，如果对象被释放则自动移除
+            </summary>
+        </member>
+        <member name="F:Net.Client.ClientBase.OnSerializeRPC">
             <summary>
             当内核序列化远程函数时调用, 如果想改变内核rpc的序列化方式, 可重写定义序列化协议 (只允许一个委托, 例子:OnSerializeRpcHandle = (model)=>{return new byte[0];};)
             </summary>
         </member>
-        <member name="F:Net.Client.ClientBase.OnDeserializeRpcHandle">
+        <member name="F:Net.Client.ClientBase.OnDeserializeRPC">
             <summary>
             当内核解析远程过程函数时调用, 如果想改变内核rpc的序列化方式, 可重写定义解析协议 (只允许一个委托, 例子:OnDeserializeRpcHandle = (buffer)=>{return new FuncData();};)
             </summary>
         </member>
-        <member name="F:Net.Client.ClientBase.OnSerializeOptHandle">
+        <member name="F:Net.Client.ClientBase.OnSerializeOPT">
             <summary>
             当内部序列化帧操作列表时调用, 即将发送数据  !!!!!!!只允许一个委托
             </summary>
         </member>
-        <member name="F:Net.Client.ClientBase.OnDeserializeOptHandle">
+        <member name="F:Net.Client.ClientBase.OnDeserializeOPT">
             <summary>
             当内部解析帧操作列表时调用  !!!!!只允许一个委托
             </summary>
@@ -3277,7 +3286,7 @@
             立刻发送, 不需要等待帧时间 (当你要强制把客户端下线时,你还希望客户端先发送完数据后,再强制客户端退出游戏用到)
             </summary>
         </member>
-        <member name="M:Net.Client.ClientBase.SendDataHandle(Net.Share.NetQueue{Net.Share.RPCModel},System.Boolean)">
+        <member name="M:Net.Client.ClientBase.SendDataHandle(Net.Share.QueueSafe{Net.Share.RPCModel},System.Boolean)">
             <summary>
             发送处理
             </summary>
@@ -3339,13 +3348,6 @@
             而Send则是直接发送
             </summary>
             <param name="opts"></param>
-        </member>
-        <member name="M:Net.Client.ClientBase.ThreadRpc(System.String,System.Object[])">
-            <summary>
-            多线程调用网络函数
-            </summary>
-            <param name="func"></param>
-            <param name="pars"></param>
         </member>
         <member name="M:Net.Client.ClientBase.HeartHandle">
             <summary>
@@ -3673,6 +3675,19 @@
             </summary>
             <param name="callback"></param>
         </member>
+        <member name="M:Net.Client.ClientBase.AddAdapter(Net.Share.IAdapter)">
+            <summary>
+            添加适配器
+            </summary>
+            <param name="adapter"></param>
+        </member>
+        <member name="M:Net.Client.ClientBase.AddAdapter(Net.Share.AdapterType,Net.Share.IAdapter)">
+            <summary>
+            添加适配器
+            </summary>
+            <param name="type"></param>
+            <param name="adapter"></param>
+        </member>
         <member name="T:Net.Client.NetBehaviour">
             <summary>
             网络行为，此类负责网络增删Rpc远程过程调用函数，使用到网络通讯功能，需要继承此类
@@ -3909,7 +3924,7 @@
             </summary>
             <param name="useUnityThread">使用unity多线程?</param>
         </member>
-        <member name="M:Net.Client.TcpClient.Testing(System.String,System.Int32,System.Int32,System.Int32,System.Action{System.Collections.Generic.List{Net.Client.UdpClientTest}})">
+        <member name="M:Net.Client.TcpClient.Testing(System.String,System.Int32,System.Int32,System.Int32,System.Action{System.Collections.Generic.List{Net.Client.TcpClient.TcpClientTest}})">
             <summary>
             tcp压力测试
             </summary>
@@ -4013,6 +4028,27 @@
             <param name="port">服务器端口</param>
             <param name="clientLen">测试客户端数量</param>
             <param name="dataLen">每个客户端数据大小</param>
+        </member>
+        <member name="T:Net.Adapter.CallSiteRpcAdapter`1">
+            <summary>
+            服务器远程过程调用适配器
+            </summary>
+            <typeparam name="Player"></typeparam>
+        </member>
+        <member name="T:Net.Adapter.CallSiteRpcAdapter">
+            <summary>
+            客户端远程过程调用适配器
+            </summary>
+        </member>
+        <member name="T:Net.Adapter.ListenerAdapter">
+            <summary>
+            网络事件监听适配器
+            </summary>
+        </member>
+        <member name="T:Net.Adapter.SerializeAdapter">
+            <summary>
+            快速序列化适配器
+            </summary>
         </member>
         <member name="T:Net.Event.EventSystem">
             <summary>
@@ -4715,6 +4751,14 @@
             网络帧同步, 状态同步更新, 帧时间根据服务器主类的SyncSceneTime属性来调整速率
             </summary>
         </member>
+        <member name="M:Net.Server.NetScene`1.OnPacket(Net.Share.IServerSendHandle{`0},System.Byte,System.Int32)">
+            <summary>
+            当封包数据时调用
+            </summary>
+            <param name="handle"></param>
+            <param name="cmd"></param>
+            <param name="count"></param>
+        </member>
         <member name="M:Net.Server.NetScene`1.OnRecovery(Net.Share.Operation[])">
             <summary>
             当操作对象即将被回收, 可重写此方法, 用对象池回收复用 注意, 如果回收复用的, 创建也要使用对象池创建
@@ -5077,6 +5121,41 @@
         <member name="F:Net.Server.ServerBase`2.OnSendErrorHandle">
             <summary>
             当socket发送失败调用.参数1:玩家对象, 参数2:发送的字节数组, 参数3:发送标志(可靠和不可靠)  ->可通过SendByteData方法重新发送
+            </summary>
+        </member>
+        <member name="P:Net.Server.ServerBase`2.OnAddRpcHandle">
+            <summary>
+            当添加远程过程调用方法时调用， 参数1：要收集rpc特性的对象， 参数2：如果服务器的rpc中已经有了这个对象，还可以添加进去？
+            </summary>
+        </member>
+        <member name="P:Net.Server.ServerBase`2.OnRemoveRpc">
+            <summary>
+            当移除远程过程调用对象， 参数1：移除此对象的所有rpc方法
+            </summary>
+        </member>
+        <member name="P:Net.Server.ServerBase`2.OnRPCExecute">
+            <summary>
+            当执行调用远程过程方法时触发
+            </summary>
+        </member>
+        <member name="P:Net.Server.ServerBase`2.OnSerializeRPC">
+            <summary>
+            当序列化远程过程调用方法
+            </summary>
+        </member>
+        <member name="P:Net.Server.ServerBase`2.OnDeserializeRPC">
+            <summary>
+            当反序列化远程过程调用方法
+            </summary>
+        </member>
+        <member name="P:Net.Server.ServerBase`2.OnSerializeOPT">
+            <summary>
+            当序列化远程过程调用操作
+            </summary>
+        </member>
+        <member name="P:Net.Server.ServerBase`2.OnDeserializeOPT">
+            <summary>
+            当反序列化远程过程调用操作
             </summary>
         </member>
         <member name="P:Net.Server.ServerBase`2.Seqencing">
@@ -5679,6 +5758,19 @@
             <param name="client"></param>
             <param name="callback"></param>
         </member>
+        <member name="M:Net.Server.ServerBase`2.AddAdapter(Net.Share.IAdapter)">
+            <summary>
+            添加适配器
+            </summary>
+            <param name="adapter"></param>
+        </member>
+        <member name="M:Net.Server.ServerBase`2.AddAdapter(Net.Share.AdapterType,Net.Share.IAdapter)">
+            <summary>
+            添加适配器
+            </summary>
+            <param name="type"></param>
+            <param name="adapter"></param>
+        </member>
         <member name="T:Net.Server.DNPlayer">
             <summary>
             dotNetty客户端玩家对象
@@ -5900,28 +5992,6 @@
             </summary>
             <param name="client"></param>
         </member>
-        <member name="T:Net.Share.Win32KernelAPI">
-            <summary>
-            系统时钟间隔是个很少被关心到的系统标量，
-            它反映了系统产生时钟中断的频率，间隔越小频率越高，反之亦然。
-            每当时钟中断产生，系统相关的中断函数将会处理这个中断。
-            时钟中断处理函数会更新系统时间，检查内核调试信息等。
-            </summary>
-        </member>
-        <member name="M:Net.Share.Win32KernelAPI.timeBeginPeriod(System.UInt32)">
-            <summary>
-            设置应用程序或驱动程序使用的最小定时器分辨率  
-            </summary>
-            <param name="uMilliseconds"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Net.Share.Win32KernelAPI.timeEndPeriod(System.UInt32)">
-            <summary>
-            清除应用程序或驱动程序使用的最小定时器分辨率  
-            </summary>
-            <param name="uMilliseconds"></param>
-            <returns></returns>
-        </member>
         <member name="T:Net.Share.ConnectState">
             <summary>
             网络连接状态
@@ -6037,6 +6107,37 @@
         <member name="M:Net.Share.EventHandle.Invoke">
             <summary>
             处理事件
+            </summary>
+        </member>
+        <member name="T:Net.Share.IAdapter">
+            <summary>
+            通用适配器
+            </summary>
+        </member>
+        <member name="T:Net.Share.ISerializeAdapter">
+            <summary>
+            序列化适配器
+            </summary>
+        </member>
+        <member name="T:Net.Share.IRPCAdapter">
+            <summary>
+            客户端RPC适配器
+            </summary>
+        </member>
+        <member name="M:Net.Share.IRPCAdapter.CheckRpcUpdate">
+            <summary>
+            每50毫秒调用检查rpc是否被释放
+            </summary>
+        </member>
+        <member name="T:Net.Share.IRPCAdapter`1">
+            <summary>
+            服务器RPC适配器
+            </summary>
+            <typeparam name="Player"></typeparam>
+        </member>
+        <member name="T:Net.Share.INetworkEvtAdapter">
+            <summary>
+            网络事件适配器
             </summary>
         </member>
         <member name="T:Net.Share.IDebugHandle">
@@ -7123,14 +7224,14 @@
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:Net.Share.NetConvertBinary.WriteValue(System.IO.MemoryStream,System.Object,System.Byte,System.Boolean)">
+        <member name="M:Net.Share.NetConvertBinary.WriteValue``1(Net.Share.Segment,``0)">
             <summary>
             序列化基本类型
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Net.Share.NetConvertBinary.ToBaseValue(System.TypeCode,System.Byte[],System.Int32@)">
+        <member name="M:Net.Share.NetConvertBinary.ReadValue(System.TypeCode,System.Byte[],System.Int32@)">
             <summary>
             反序列化基本类型
             </summary>
@@ -7139,14 +7240,14 @@
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Net.Share.NetConvertBinary.WriteArray(System.IO.MemoryStream@,System.Collections.IList,System.Type,System.Boolean)">
+        <member name="M:Net.Share.NetConvertBinary.WriteArray(Net.Share.Segment@,System.Collections.IList,System.Type,System.Boolean)">
             <summary>
             序列化数组实体
             </summary>
             <param name="stream"></param>
             <param name="array"></param>
         </member>
-        <member name="M:Net.Share.NetConvertBinary.ToArray(System.Byte[],System.Int32@,System.Collections.IList@,System.Type,System.Boolean)">
+        <member name="M:Net.Share.NetConvertBinary.ReadArray(System.Byte[],System.Int32@,System.Collections.IList@,System.Type,System.Boolean)">
             <summary>
             反序列化数组
             </summary>
@@ -7169,14 +7270,14 @@
             <param name="recordType"></param>
             <returns></returns>
         </member>
-        <member name="M:Net.Share.NetConvertBinary.SerializeObject(System.Object,System.Boolean)">
+        <member name="M:Net.Share.NetConvertBinary.SerializeObject``1(``0,System.Boolean)">
             <summary>
             序列化对象, 不记录反序列化类型
             </summary>
             <param name="obj"></param>
             <returns></returns>
         </member>
-        <member name="M:Net.Share.NetConvertBinary.WriteObject(System.IO.MemoryStream@,System.Type,System.Object,System.Boolean)">
+        <member name="M:Net.Share.NetConvertBinary.WriteObject``1(Net.Share.Segment@,System.Type,``0,System.Boolean)">
             <summary>
             序列化对象
             </summary>
@@ -7192,7 +7293,7 @@
             <param name="index"></param>
             <param name="count"></param>
         </member>
-        <member name="M:Net.Share.NetConvertBinary.ToObject(System.Byte[],System.Int32@,System.Type,System.Boolean)">
+        <member name="M:Net.Share.NetConvertBinary.ReadObject(System.Byte[],System.Int32@,System.Type,System.Boolean)">
             <summary>
             反序列化实体对象
             </summary>
@@ -7395,49 +7496,49 @@
             反序列化字典类型
             </summary>
         </member>
-        <member name="T:Net.Share.NetDelegate">
+        <member name="T:Net.Share.RPCMethod">
             <summary>
-            远程过程调用委托
+            远程过程调用方法
             </summary>
         </member>
-        <member name="F:Net.Share.NetDelegate.Name">
+        <member name="F:Net.Share.RPCMethod.Name">
             <summary>
             委托函数名
             </summary>
         </member>
-        <member name="F:Net.Share.NetDelegate.target">
+        <member name="F:Net.Share.RPCMethod.target">
             <summary>
             委托对象
             </summary>
         </member>
-        <member name="F:Net.Share.NetDelegate.method">
+        <member name="F:Net.Share.RPCMethod.method">
             <summary>
             委托方法
             </summary>
         </member>
-        <member name="F:Net.Share.NetDelegate.cmd">
+        <member name="F:Net.Share.RPCMethod.cmd">
             <summary>
             网络命令
             </summary>
         </member>
-        <member name="M:Net.Share.NetDelegate.#ctor(System.Action)">
+        <member name="M:Net.Share.RPCMethod.#ctor(System.Action)">
             <summary>
-            网络委托构造函数
+            远程过程调用方法
             </summary>
         </member>
-        <member name="M:Net.Share.NetDelegate.AddMethodEvent(System.Delegate)">
+        <member name="M:Net.Share.RPCMethod.AddMethodEvent(System.Delegate)">
             <summary>
             网络委托
             </summary>
         </member>
-        <member name="M:Net.Share.NetDelegate.#ctor(System.Object,System.Reflection.MethodInfo)">
+        <member name="M:Net.Share.RPCMethod.#ctor(System.Object,System.Reflection.MethodInfo)">
             <summary>
-            网络委托构造函数
+            远程过程调用方法
             </summary>
         </member>
-        <member name="M:Net.Share.NetDelegate.#ctor(System.Object,System.Reflection.MethodInfo,System.Byte)">
+        <member name="M:Net.Share.RPCMethod.#ctor(System.Object,System.Reflection.MethodInfo,System.Byte)">
             <summary>
-            网络委托构造函数
+            远程过程调用方法
             </summary>
         </member>
         <member name="T:Net.Share.NetState">
@@ -8244,9 +8345,31 @@
             <param name="count"></param>
             <returns></returns>
         </member>
+        <member name="T:Net.Share.Win32KernelAPI">
+            <summary>
+            系统时钟间隔是个很少被关心到的系统标量，
+            它反映了系统产生时钟中断的频率，间隔越小频率越高，反之亦然。
+            每当时钟中断产生，系统相关的中断函数将会处理这个中断。
+            时钟中断处理函数会更新系统时间，检查内核调试信息等。
+            </summary>
+        </member>
+        <member name="M:Net.Share.Win32KernelAPI.timeBeginPeriod(System.UInt32)">
+            <summary>
+            设置应用程序或驱动程序使用的最小定时器分辨率  
+            </summary>
+            <param name="uMilliseconds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Net.Share.Win32KernelAPI.timeEndPeriod(System.UInt32)">
+            <summary>
+            清除应用程序或驱动程序使用的最小定时器分辨率  
+            </summary>
+            <param name="uMilliseconds"></param>
+            <returns></returns>
+        </member>
         <member name="T:Net.Share.Segment">
             <summary>
-            内存数据分片
+            内存数据片段
             </summary>
         </member>
         <member name="P:Net.Share.Segment.Buffer">
@@ -8262,6 +8385,11 @@
         <member name="P:Net.Share.Segment.Count">
             <summary>
             片的长度
+            </summary>
+        </member>
+        <member name="P:Net.Share.Segment.Position">
+            <summary>
+            读写位置
             </summary>
         </member>
         <member name="P:Net.Share.Segment.Length">
@@ -8282,7 +8410,7 @@
             </summary>
             <param name="buffer"></param>
         </member>
-        <member name="M:Net.Share.Segment.#ctor(System.Byte[],System.Int32,System.Int32)">
+        <member name="M:Net.Share.Segment.#ctor(System.Byte[],System.Int32,System.Int32,System.Boolean)">
             <summary>
             构造内存分片
             </summary>
@@ -8290,10 +8418,11 @@
             <param name="index"></param>
             <param name="count"></param>
         </member>
-        <member name="M:Net.Share.Segment.ToArray">
+        <member name="M:Net.Share.Segment.ToArray(System.Boolean)">
             <summary>
             复制分片数据
             </summary>
+            <param name="recovery">复制数据后立即回收此分片?</param>
             <returns></returns>
         </member>
         <member name="T:Net.Share.BufferPool">
@@ -8303,7 +8432,7 @@
         </member>
         <member name="P:Net.Share.BufferPool.Size">
             <summary>
-            数据缓冲池大小. 默认65507字节
+            数据缓冲池大小. 默认65536字节
             </summary>
         </member>
         <member name="M:Net.Share.BufferPool.Take">
@@ -8339,66 +8468,66 @@
             <param name="count"></param>
             <returns></returns>
         </member>
-        <member name="T:Net.Share.SystemCollectionsConcurrent_ProducerConsumerCollectionDebugView`1">
+        <member name="T:Net.Share.QueueSafeDebugView`1">
             <summary>
             A debugger view of the IProducerConsumerCollection that makes it simple to browse the
             collection's contents at a point in time.
             </summary>
             <typeparam name="T">The type of elements stored within.</typeparam>
         </member>
-        <member name="M:Net.Share.SystemCollectionsConcurrent_ProducerConsumerCollectionDebugView`1.#ctor(System.Collections.Concurrent.IProducerConsumerCollection{`0})">
+        <member name="M:Net.Share.QueueSafeDebugView`1.#ctor(System.Collections.Concurrent.IProducerConsumerCollection{`0})">
             <summary>
             Constructs a new debugger view object for the provided collection object.
             </summary>
             <param name="collection">A collection to browse in the debugger.</param>
         </member>
-        <member name="P:Net.Share.SystemCollectionsConcurrent_ProducerConsumerCollectionDebugView`1.Items">
+        <member name="P:Net.Share.QueueSafeDebugView`1.Items">
             <summary>
             Returns a snapshot of the underlying collection's elements.
             </summary>
         </member>
-        <member name="T:Net.Share.NetQueue`1">
+        <member name="T:Net.Share.QueueSafe`1">
             <summary>
             解决压入值在多线程中压入一半时, 其他线程就来取出值的问题
             </summary>
             <typeparam name="T">Specifies the type of elements in the queue.</typeparam>
             <remarks>
-            All public  and protected members of <see cref="T:Net.Share.NetQueue`1"/> are thread-safe and may be used
+            All public  and protected members of <see cref="T:Net.Share.QueueSafe`1"/> are thread-safe and may be used
             concurrently from multiple threads.
             </remarks>
         </member>
-        <member name="M:Net.Share.NetQueue`1.#ctor">
+        <member name="M:Net.Share.QueueSafe`1.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:Net.Share.NetQueue`1"/> class.
+            Initializes a new instance of the <see cref="T:Net.Share.QueueSafe`1"/> class.
             </summary>
         </member>
-        <member name="M:Net.Share.NetQueue`1.InitializeFromCollection(System.Collections.Generic.IEnumerable{`0})">
+        <member name="M:Net.Share.QueueSafe`1.InitializeFromCollection(System.Collections.Generic.IEnumerable{`0})">
             <summary>
             Initializes the contents of the queue from an existing collection.
             </summary>
             <param name="collection">A collection from which to copy elements.</param>
         </member>
-        <member name="M:Net.Share.NetQueue`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+        <member name="M:Net.Share.QueueSafe`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
             <summary>
-            Initializes a new instance of the <see cref="T:Net.Share.NetQueue`1"/>
+            Initializes a new instance of the <see cref="T:Net.Share.QueueSafe`1"/>
             class that contains elements copied from the specified collection
             </summary>
             <param name="collection">The collection whose elements are copied to the new <see
-            cref="T:Net.Share.NetQueue`1"/>.</param>
+            cref="T:Net.Share.QueueSafe`1"/>.</param>
             <exception cref="T:System.ArgumentNullException">The <paramref name="collection"/> argument is
             null.</exception>
         </member>
-        <member name="M:Net.Share.NetQueue`1.OnSerializing(System.Runtime.Serialization.StreamingContext)">
+        <member name="M:Net.Share.QueueSafe`1.OnSerializing(System.Runtime.Serialization.StreamingContext)">
             <summary>
             Get the data array to be serialized
             </summary>
         </member>
-        <member name="M:Net.Share.NetQueue`1.OnDeserialized(System.Runtime.Serialization.StreamingContext)">
+        <member name="M:Net.Share.QueueSafe`1.OnDeserialized(System.Runtime.Serialization.StreamingContext)">
             <summary>
             Construct the queue from a previously seiralized one
             </summary>
         </member>
-        <member name="M:Net.Share.NetQueue`1.System#Collections#ICollection#CopyTo(System.Array,System.Int32)">
+        <member name="M:Net.Share.QueueSafe`1.System#Collections#ICollection#CopyTo(System.Array,System.Int32)">
             <summary>
             Copies the elements of the <see cref="T:System.Collections.ICollection"/> to an <see
             cref="T:System.Array"/>, starting at a particular
@@ -8425,29 +8554,29 @@
             destination <paramref name="array"/>.
             </exception>
         </member>
-        <member name="P:Net.Share.NetQueue`1.System#Collections#ICollection#IsSynchronized">
+        <member name="P:Net.Share.QueueSafe`1.System#Collections#ICollection#IsSynchronized">
             <summary>
             Gets a value indicating whether access to the <see cref="T:System.Collections.ICollection"/> is
             synchronized with the SyncRoot.
             </summary>
             <value>true if access to the <see cref="T:System.Collections.ICollection"/> is synchronized
-            with the SyncRoot; otherwise, false. For <see cref="T:Net.Share.NetQueue`1"/>, this property always
+            with the SyncRoot; otherwise, false. For <see cref="T:Net.Share.QueueSafe`1"/>, this property always
             returns false.</value>
         </member>
-        <member name="P:Net.Share.NetQueue`1.System#Collections#ICollection#SyncRoot">
+        <member name="P:Net.Share.QueueSafe`1.System#Collections#ICollection#SyncRoot">
             <summary>
             Gets an object that can be used to synchronize access to the <see
             cref="T:System.Collections.ICollection"/>. This property is not supported.
             </summary>
             <exception cref="T:System.NotSupportedException">The SyncRoot property is not supported.</exception>
         </member>
-        <member name="M:Net.Share.NetQueue`1.System#Collections#IEnumerable#GetEnumerator">
+        <member name="M:Net.Share.QueueSafe`1.System#Collections#IEnumerable#GetEnumerator">
             <summary>
             Returns an enumerator that iterates through a collection.
             </summary>
             <returns>An <see cref="T:System.Collections.IEnumerator"/> that can be used to iterate through the collection.</returns>
         </member>
-        <member name="M:Net.Share.NetQueue`1.System#Collections#Concurrent#IProducerConsumerCollection{T}#TryAdd(`0)">
+        <member name="M:Net.Share.QueueSafe`1.System#Collections#Concurrent#IProducerConsumerCollection{T}#TryAdd(`0)">
             <summary>
             Attempts to add an object to the <see
             cref="T:System.Collections.Concurrent.IProducerConsumerCollection{T}"/>.
@@ -8457,11 +8586,11 @@
             reference (Nothing in Visual Basic) for reference types.
             </param>
             <returns>true if the object was added successfully; otherwise, false.</returns>
-            <remarks>For <see cref="T:Net.Share.NetQueue`1"/>, this operation will always add the object to the
-            end of the <see cref="T:Net.Share.NetQueue`1"/>
+            <remarks>For <see cref="T:Net.Share.QueueSafe`1"/>, this operation will always add the object to the
+            end of the <see cref="T:Net.Share.QueueSafe`1"/>
             and return true.</remarks>
         </member>
-        <member name="M:Net.Share.NetQueue`1.System#Collections#Concurrent#IProducerConsumerCollection{T}#TryTake(`0@)">
+        <member name="M:Net.Share.QueueSafe`1.System#Collections#Concurrent#IProducerConsumerCollection{T}#TryTake(`0@)">
             <summary>
             Attempts to remove and return an object from the <see
             cref="T:System.Collections.Concurrent.IProducerConsumerCollection{T}"/>.
@@ -8471,39 +8600,39 @@
             object removed. If no object was available to be removed, the value is unspecified.
             </param>
             <returns>true if an element was removed and returned succesfully; otherwise, false.</returns>
-            <remarks>For <see cref="T:Net.Share.NetQueue`1"/>, this operation will attempt to remove the object
-            from the beginning of the <see cref="T:Net.Share.NetQueue`1"/>.
+            <remarks>For <see cref="T:Net.Share.QueueSafe`1"/>, this operation will attempt to remove the object
+            from the beginning of the <see cref="T:Net.Share.QueueSafe`1"/>.
             </remarks>
         </member>
-        <member name="P:Net.Share.NetQueue`1.IsEmpty">
+        <member name="P:Net.Share.QueueSafe`1.IsEmpty">
             <summary>
-            Gets a value that indicates whether the <see cref="T:Net.Share.NetQueue`1"/> is empty.
+            Gets a value that indicates whether the <see cref="T:Net.Share.QueueSafe`1"/> is empty.
             </summary>
-            <value>true if the <see cref="T:Net.Share.NetQueue`1"/> is empty; otherwise, false.</value>
+            <value>true if the <see cref="T:Net.Share.QueueSafe`1"/> is empty; otherwise, false.</value>
             <remarks>
             For determining whether the collection contains any items, use of this property is recommended
-            rather than retrieving the number of items from the <see cref="P:Net.Share.NetQueue`1.Count"/> property and comparing it
+            rather than retrieving the number of items from the <see cref="P:Net.Share.QueueSafe`1.Count"/> property and comparing it
             to 0.  However, as this collection is intended to be accessed concurrently, it may be the case
-            that another thread will modify the collection after <see cref="P:Net.Share.NetQueue`1.IsEmpty"/> returns, thus invalidating
+            that another thread will modify the collection after <see cref="P:Net.Share.QueueSafe`1.IsEmpty"/> returns, thus invalidating
             the result.
             </remarks>
         </member>
-        <member name="M:Net.Share.NetQueue`1.ToArray">
+        <member name="M:Net.Share.QueueSafe`1.ToArray">
             <summary>
-            Copies the elements stored in the <see cref="T:Net.Share.NetQueue`1"/> to a new array.
+            Copies the elements stored in the <see cref="T:Net.Share.QueueSafe`1"/> to a new array.
             </summary>
             <returns>A new array containing a snapshot of elements copied from the <see
-            cref="T:Net.Share.NetQueue`1"/>.</returns>
+            cref="T:Net.Share.QueueSafe`1"/>.</returns>
         </member>
-        <member name="M:Net.Share.NetQueue`1.ToList">
+        <member name="M:Net.Share.QueueSafe`1.ToList">
             <summary>
-            Copies the <see cref="T:Net.Share.NetQueue`1"/> elements to a new <see
+            Copies the <see cref="T:Net.Share.QueueSafe`1"/> elements to a new <see
             cref="T:System.Collections.Generic.List{T}"/>.
             </summary>
             <returns>A new <see cref="T:System.Collections.Generic.List{T}"/> containing a snapshot of
-            elements copied from the <see cref="T:Net.Share.NetQueue`1"/>.</returns>
+            elements copied from the <see cref="T:Net.Share.QueueSafe`1"/>.</returns>
         </member>
-        <member name="M:Net.Share.NetQueue`1.GetHeadTailPositions(Net.Share.NetQueue{`0}.Segment@,Net.Share.NetQueue{`0}.Segment@,System.Int32@,System.Int32@)">
+        <member name="M:Net.Share.QueueSafe`1.GetHeadTailPositions(Net.Share.QueueSafe{`0}.Segment@,Net.Share.QueueSafe{`0}.Segment@,System.Int32@,System.Int32@)">
             <summary>
             Store the position of the current head and tail positions.
             </summary>
@@ -8512,25 +8641,25 @@
             <param name="headLow">return the head offset, value range [0, SEGMENT_SIZE]</param>
             <param name="tailHigh">return the tail offset, value range [-1, SEGMENT_SIZE-1]</param>
         </member>
-        <member name="P:Net.Share.NetQueue`1.Count">
+        <member name="P:Net.Share.QueueSafe`1.Count">
             <summary>
-            Gets the number of elements contained in the <see cref="T:Net.Share.NetQueue`1"/>.
+            Gets the number of elements contained in the <see cref="T:Net.Share.QueueSafe`1"/>.
             </summary>
-            <value>The number of elements contained in the <see cref="T:Net.Share.NetQueue`1"/>.</value>
+            <value>The number of elements contained in the <see cref="T:Net.Share.QueueSafe`1"/>.</value>
             <remarks>
-            For determining whether the collection contains any items, use of the <see cref="P:Net.Share.NetQueue`1.IsEmpty"/>
-            property is recommended rather than retrieving the number of items from the <see cref="P:Net.Share.NetQueue`1.Count"/>
+            For determining whether the collection contains any items, use of the <see cref="P:Net.Share.QueueSafe`1.IsEmpty"/>
+            property is recommended rather than retrieving the number of items from the <see cref="P:Net.Share.QueueSafe`1.Count"/>
             property and comparing it to 0.
             </remarks>
         </member>
-        <member name="M:Net.Share.NetQueue`1.CopyTo(`0[],System.Int32)">
+        <member name="M:Net.Share.QueueSafe`1.CopyTo(`0[],System.Int32)">
             <summary>
-            Copies the <see cref="T:Net.Share.NetQueue`1"/> elements to an existing one-dimensional <see
+            Copies the <see cref="T:Net.Share.QueueSafe`1"/> elements to an existing one-dimensional <see
             cref="T:System.Array">Array</see>, starting at the specified array index.
             </summary>
             <param name="array">The one-dimensional <see cref="T:System.Array">Array</see> that is the
             destination of the elements copied from the
-            <see cref="T:Net.Share.NetQueue`1"/>. The <see cref="T:System.Array">Array</see> must have zero-based
+            <see cref="T:Net.Share.QueueSafe`1"/>. The <see cref="T:System.Array">Array</see> must have zero-based
             indexing.</param>
             <param name="index">The zero-based index in <paramref name="array"/> at which copying
             begins.</param>
@@ -8540,55 +8669,55 @@
             zero.</exception>
             <exception cref="T:System.ArgumentException"><paramref name="index"/> is equal to or greater than the
             length of the <paramref name="array"/>
-            -or- The number of elements in the source <see cref="T:Net.Share.NetQueue`1"/> is greater than the
+            -or- The number of elements in the source <see cref="T:Net.Share.QueueSafe`1"/> is greater than the
             available space from <paramref name="index"/> to the end of the destination <paramref
             name="array"/>.
             </exception>
         </member>
-        <member name="M:Net.Share.NetQueue`1.GetEnumerator">
+        <member name="M:Net.Share.QueueSafe`1.GetEnumerator">
             <summary>
             Returns an enumerator that iterates through the <see
-            cref="T:Net.Share.NetQueue`1"/>.
+            cref="T:Net.Share.QueueSafe`1"/>.
             </summary>
             <returns>An enumerator for the contents of the <see
-            cref="T:Net.Share.NetQueue`1"/>.</returns>
+            cref="T:Net.Share.QueueSafe`1"/>.</returns>
             <remarks>
             The enumeration represents a moment-in-time snapshot of the contents
             of the queue.  It does not reflect any updates to the collection after 
-            <see cref="M:Net.Share.NetQueue`1.GetEnumerator"/> was called.  The enumerator is safe to use
+            <see cref="M:Net.Share.QueueSafe`1.GetEnumerator"/> was called.  The enumerator is safe to use
             concurrently with reads from and writes to the queue.
             </remarks>
         </member>
-        <member name="M:Net.Share.NetQueue`1.GetEnumerator(Net.Share.NetQueue{`0}.Segment,Net.Share.NetQueue{`0}.Segment,System.Int32,System.Int32)">
+        <member name="M:Net.Share.QueueSafe`1.GetEnumerator(Net.Share.QueueSafe{`0}.Segment,Net.Share.QueueSafe{`0}.Segment,System.Int32,System.Int32)">
             <summary>
             Helper method of GetEnumerator to seperate out yield return statement, and prevent lazy evaluation. 
             </summary>
         </member>
-        <member name="M:Net.Share.NetQueue`1.Enqueue(`0)">
+        <member name="M:Net.Share.QueueSafe`1.Enqueue(`0)">
             <summary>
-            Adds an object to the end of the <see cref="T:Net.Share.NetQueue`1"/>.
+            Adds an object to the end of the <see cref="T:Net.Share.QueueSafe`1"/>.
             </summary>
             <param name="item">The object to add to the end of the <see
-            cref="T:Net.Share.NetQueue`1"/>. The value can be a null reference
+            cref="T:Net.Share.QueueSafe`1"/>. The value can be a null reference
             (Nothing in Visual Basic) for reference types.
             </param>
         </member>
-        <member name="M:Net.Share.NetQueue`1.TryDequeue(`0@)">
+        <member name="M:Net.Share.QueueSafe`1.TryDequeue(`0@)">
             <summary>
             Attempts to remove and return the object at the beginning of the <see
-            cref="T:Net.Share.NetQueue`1"/>.
+            cref="T:Net.Share.QueueSafe`1"/>.
             </summary>
             <param name="result">
             When this method returns, if the operation was successful, <paramref name="result"/> contains the
             object removed. If no object was available to be removed, the value is unspecified.
             </param>
             <returns>true if an element was removed and returned from the beggining of the <see
-            cref="T:Net.Share.NetQueue`1"/>
+            cref="T:Net.Share.QueueSafe`1"/>
             succesfully; otherwise, false.</returns>
         </member>
-        <member name="M:Net.Share.NetQueue`1.TryPeek(`0@)">
+        <member name="M:Net.Share.QueueSafe`1.TryPeek(`0@)">
             <summary>
-            Attempts to return an object from the beginning of the <see cref="T:Net.Share.NetQueue`1"/>
+            Attempts to return an object from the beginning of the <see cref="T:Net.Share.QueueSafe`1"/>
             without removing it.
             </summary>
             <param name="result">When this method returns, <paramref name="result"/> contains an object from
@@ -8596,7 +8725,7 @@
             unspecified value if the operation failed.</param>
             <returns>true if and object was returned successfully; otherwise, false.</returns>
         </member>
-        <member name="T:Net.Share.NetQueue`1.Segment">
+        <member name="T:Net.Share.QueueSafe`1.Segment">
             <summary>
             private class for ConcurrentQueue. 
             a queue is a linked list of small arrays, each node is called a segment.
@@ -8604,23 +8733,23 @@
             the first and last valid elements of the array.
             </summary>
         </member>
-        <member name="M:Net.Share.NetQueue`1.Segment.#ctor(System.Int64,Net.Share.NetQueue{`0})">
+        <member name="M:Net.Share.QueueSafe`1.Segment.#ctor(System.Int64,Net.Share.QueueSafe{`0})">
             <summary>
             Create and initialize a segment with the specified index.
             </summary>
         </member>
-        <member name="P:Net.Share.NetQueue`1.Segment.Next">
+        <member name="P:Net.Share.QueueSafe`1.Segment.Next">
             <summary>
             return the next segment
             </summary>
         </member>
-        <member name="P:Net.Share.NetQueue`1.Segment.IsEmpty">
+        <member name="P:Net.Share.QueueSafe`1.Segment.IsEmpty">
             <summary>
             return true if the current segment is empty (doesn't have any element available to dequeue, 
             false otherwise
             </summary>
         </member>
-        <member name="M:Net.Share.NetQueue`1.Segment.UnsafeAdd(`0)">
+        <member name="M:Net.Share.QueueSafe`1.Segment.UnsafeAdd(`0)">
             <summary>
             Add an element to the tail of the current segment
             exclusively called by ConcurrentQueue.InitializedFromCollection
@@ -8629,7 +8758,7 @@
             </summary>
             <param name="value"></param>
         </member>
-        <member name="M:Net.Share.NetQueue`1.Segment.UnsafeGrow">
+        <member name="M:Net.Share.QueueSafe`1.Segment.UnsafeGrow">
             <summary>
             Create a new segment and append to the current one
             Does not update the m_tail pointer
@@ -8639,14 +8768,14 @@
             </summary>
             <returns>the reference to the new Segment</returns>
         </member>
-        <member name="M:Net.Share.NetQueue`1.Segment.Grow">
+        <member name="M:Net.Share.QueueSafe`1.Segment.Grow">
             <summary>
             Create a new segment and append to the current one
             Update the m_tail pointer
             This method is called when there is no contention
             </summary>
         </member>
-        <member name="M:Net.Share.NetQueue`1.Segment.TryAppend(`0)">
+        <member name="M:Net.Share.QueueSafe`1.Segment.TryAppend(`0)">
             <summary>
             Try to append an element at the end of this segment.
             </summary>
@@ -8655,14 +8784,14 @@
             <remarks>if appending the specified element succeeds, and after which the segment is full, 
             then grow the segment</remarks>
         </member>
-        <member name="M:Net.Share.NetQueue`1.Segment.TryRemove(`0@)">
+        <member name="M:Net.Share.QueueSafe`1.Segment.TryRemove(`0@)">
             <summary>
             try to remove an element from the head of current segment
             </summary>
             <param name="result">The result.</param>
             <returns>return false only if the current segment is empty</returns>
         </member>
-        <member name="M:Net.Share.NetQueue`1.Segment.TryPeek(`0@)">
+        <member name="M:Net.Share.QueueSafe`1.Segment.TryPeek(`0@)">
             <summary>
             try to peek the current segment
             </summary>
@@ -8670,7 +8799,7 @@
             value set to default(T) if there is no such an element</param>
             <returns>true if there are elements in the current segment, false otherwise</returns>
         </member>
-        <member name="M:Net.Share.NetQueue`1.Segment.AddToList(System.Collections.Generic.List{`0},System.Int32,System.Int32)">
+        <member name="M:Net.Share.QueueSafe`1.Segment.AddToList(System.Collections.Generic.List{`0},System.Int32,System.Int32)">
             <summary>
             Adds part or all of the current segment into a List.
             </summary>
@@ -8678,13 +8807,13 @@
             <param name="start">the start position</param>
             <param name="end">the end position</param>
         </member>
-        <member name="P:Net.Share.NetQueue`1.Segment.Low">
+        <member name="P:Net.Share.QueueSafe`1.Segment.Low">
             <summary>
             return the position of the head of the current segment
             Value range [0, SEGMENT_SIZE], if it's SEGMENT_SIZE, it means this segment is exhausted and thus empty
             </summary>
         </member>
-        <member name="P:Net.Share.NetQueue`1.Segment.High">
+        <member name="P:Net.Share.QueueSafe`1.Segment.High">
             <summary>
             return the logical position of the tail of the current segment      
             Value range [-1, SEGMENT_SIZE-1]. When it's -1, it means this is a new segment and has no elemnet yet
